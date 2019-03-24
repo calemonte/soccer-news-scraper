@@ -28,6 +28,7 @@ body {
     cursor: pointer;
 }
 
+.add-note:hover,
 .save-article:hover,
 .delete-article:hover {
     cursor: pointer;

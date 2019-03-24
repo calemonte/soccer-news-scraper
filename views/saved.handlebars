@@ -6,7 +6,7 @@
 <!-- Cards -->
 <div class="container">
     {{#if article}}
-    <div class="card-columns mt-3 mb-3 rounded text-center">
+    <div class="card-columns mt-3 mb-3 rounded text-center" data-id="{{_id}}">
         {{#each article}}
         <div class="card shadow mt-3" style="width: 18rem;">
             {{#if image}}
@@ -17,7 +17,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{title}}</h5>
                 <a href="{{link}}" class="btn btn-primary" target="_blank">View Article</a>
-                <a class="btn btn-secondary save-article text-white" data-id="{{_id}}">Add Note</a>
+                <a class="btn btn-secondary add-note text-white" data-id="{{_id}}">Add Note</a>
                 <a class="btn btn-danger delete-article text-white mt-2" data-id="{{_id}}">Delete Saved Article</a>
             </div>
         </div>
@@ -34,12 +34,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add a note for this article</h5>
+                <h5 class="modal-title">Add a Note</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+
+                <div class="border border rounded p-2 text-center mb-2">
+                    {{#each note}}
+                      <h5>{{title}}</h5>
+                      <p>{{body}}</p>
+                      <button type="button" class="btn btn-danger btn-sm" data-id="{{_id}}">Delete Note</button>
+                    {{else}}
+                      <p>There aren't any notes yet for this article.</p>
+                    {{/each}}
+                </div>
+                <hr />
                 <form>
                     <div class="form-group">
                         <label for="note-title">Title</label>
@@ -50,7 +61,7 @@
                         <label for="note-text">Note</label>
                         <textarea class="form-control" id="note-text" rows="3" placeholder="Enter your note"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="submit-note">Submit</button>
                 </form>
             </div>
             <div class="modal-footer">
