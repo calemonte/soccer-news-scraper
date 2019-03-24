@@ -24,3 +24,7 @@ body {
   /* height: 100vh; */
   width: 100%;
 }
+
+.card-columns {
+    background-color: rgba(245, 245, 245, 0.4);
+}
