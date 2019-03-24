@@ -31,4 +31,4 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 const routes = require("./controllers/scrape_controller.js");
 app.use(routes);
 
-app.listen(PORT, () => `App running on port ${PORT}!`);
+app.listen(PORT, () => console.log(`App running on port ${PORT}!`));
