@@ -22,10 +22,8 @@ router.get("/api/scrape", (req, res) => {
   axios.get("https://www.theguardian.com/football").then(response => {
     const $ = cheerio.load(response.data);
 
-    let result = {};
-
     $(".fc-item__container").each(function(i, element) {
-
+      let result = {};
       const textContent = $(element).find(".fc-item__content");
       const mediaContent = $(element).find(".fc-item__media-wrapper");
 
@@ -43,25 +41,36 @@ router.get("/api/scrape", (req, res) => {
 
       result.saved = false;
 
-      db.Article.create(result)
-        .then(dbArticle => {
-          // View the added result in the console
-          console.log(dbArticle);
-        })
-        .catch(err => console.log(err));
+      // Only save articles to the database if they don't exist already.
+      db.Article.findOne(
+        {
+          link: result.link
+        },
+        (err, doc) => {
+          if (err) console.log(err);
+          if (!doc) {
+            db.Article.create(result)
+              .then(dbArticle => {
+                console.log(dbArticle);
+              })
+              .catch(err => console.log(err));
+          } else {
+            console.log("Article already exists in the database.");
+          }
+        }
+      );
     });
 
-    res.send(`Scrape complete!`);
+    res.send(200, `Scrape complete!`);
   });
 });
 
 router.get("/api/clear", (req, res) => {
-    db.Article.deleteMany({
-        saved: false
-    })
+  db.Article.deleteMany({
+    saved: false
+  })
     .then(response => res.send(response))
     .catch(err => console.log(err));
-
-})
+});
 
 module.exports = router;
