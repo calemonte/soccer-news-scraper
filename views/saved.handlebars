@@ -1,6 +1,6 @@
 <div class="jumbotron bg-transparent text-center text-white">
     <h1 class="display-4">Saved Articles</h1>
-        {{!-- <p class="lead">Check out all of the articles that have been saved by a user at some point. To remove them from the database, click remove.</p> --}}
+    {{!-- <p class="lead">Check out all of the articles that have been saved by a user at some point. To remove them from the database, click remove.</p> --}}
 </div>
 
 <!-- Cards -->
@@ -27,6 +27,37 @@
     <h3 class="text-center mt-3 p-4 bg-white rounded">There are currently no saved articles available. Scrape some and
         then save them here!</h3>
     {{/if}}
+</div>
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a note for this article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="note-title">Title</label>
+                        <input type="text" class="form-control" id="note-title" aria-describedby="emailHelp"
+                            placeholder="Enter a title for your note">
+                    </div>
+                    <div class="form-group">
+                        <label for="note-text">Note</label>
+                        <textarea class="form-control" id="note-text" rows="3" placeholder="Enter your note"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Bootstrap core JavaScript -->

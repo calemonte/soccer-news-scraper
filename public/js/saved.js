@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $(".delete-article").on("click", deleteArticle);
+  $(".save-article").on("click", showSaveModal);
 
   // Delete an article from the database and the DOM when clicked.
   function deleteArticle() {
@@ -11,5 +12,9 @@ $(document).ready(function() {
         type: "DELETE",
         url: `/api/article/${id}`,
     }).then(data => console.log(data));
+  }
+
+  function showSaveModal() {
+    $(".modal").modal("show");
   }
 });
