@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Concert+One');
+
+/* Site-wide */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.navbar-brand {
+  font-family: "Concert One";
+}
+
+/* Landing Page */
+#landing {
+  background: url('../img/stadium.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  /* height: 100vh; */
+  width: 100%;
+}
