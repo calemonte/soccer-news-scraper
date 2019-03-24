@@ -83,7 +83,7 @@ router.get("/api/scrape", (req, res) => {
 // Update an article to save.
 router.put("/api/article/:id", (req, res) => {
   const id = req.params.id;
-  console.log(id);
+
   db.Article.updateOne(
     {
       _id: id
@@ -96,6 +96,17 @@ router.put("/api/article/:id", (req, res) => {
   )
     .then(doc => res.send(doc))
     .catch(err => console.log(err));
+});
+
+// Delete a saved article.
+router.delete("/api/article/:id", (req, res) => {
+  const id = req.params.id;
+
+  db.Article.deleteOne({
+      _id: id
+  })
+  .then(deletedDoc => res.send(deletedDoc))
+  .catch(err => console.log(err));
 });
 
 // Clear the database of all "unsaved" articles when we hit the /api/clear route.
