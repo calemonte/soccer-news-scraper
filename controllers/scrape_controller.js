@@ -8,7 +8,9 @@ const router = express.Router();
 
 // Display the scraped articles from the database when visiting the homepage.
 router.get("/", (req, res) => {
-  db.Article.find({})
+  db.Article.find({
+      saved: false
+  })
     .then(article => {
       res.render("index", {
         article: article
@@ -17,7 +19,7 @@ router.get("/", (req, res) => {
     .catch(error => res.json(error));
 });
 
-// Scrape fresh articles when we hit the /scrap route.
+// Scrape fresh articles when we hit the /scrape route.
 router.get("/api/scrape", (req, res) => {
   axios.get("https://www.theguardian.com/football").then(response => {
     const $ = cheerio.load(response.data);
@@ -65,6 +67,25 @@ router.get("/api/scrape", (req, res) => {
   });
 });
 
+// Update an article to save.
+router.put("/api/article/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  db.Article.updateOne(
+    {
+      _id: id
+    },
+    {
+      $set: {
+        saved: true
+      }
+    }
+  )
+    .then(doc => res.send(doc))
+    .catch(err => console.log(err));
+});
+
+// Clear the database of all "unsaved" articles when we hit the /api/clear route.
 router.get("/api/clear", (req, res) => {
   db.Article.deleteMany({
     saved: false
