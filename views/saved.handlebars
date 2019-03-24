@@ -1,0 +1,28 @@
+<div class="jumbotron bg-transparent text-center text-white">
+    <h1 class="display-4">Saved Articles</h1>
+        {{!-- <p class="lead">Check out all of the articles that have been saved by a user at some point. To remove them from the database, click remove.</p> --}}
+</div>
+<div class="container">
+    {{#if article}}
+    <div class="card-columns mt-3 mb-3 rounded text-center">
+        {{#each article}}
+        <div class="card shadow mt-3" style="width: 18rem;">
+            {{#if image}}
+            <img src="{{image}}" class="card-img-top" alt="...">
+            {{else}}
+            <img src="./img/pitch.jpg" class="card-img-top" alt="...">
+            {{/if}}
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <a href="{{link}}" class="btn btn-primary" target="_blank">View Article</a>
+                <a class="btn btn-secondary save-article text-white" data-id="{{_id}}">Add Note</a>
+                <a class="btn btn-danger delete-article text-white mt-2" data-id="{{_id}}">Delete Saved Article</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <h3 class="text-center mt-3 p-4 bg-white rounded">There are currently no saved articles available. Scrape some and
+        then save them here!</h3>
+    {{/if}}
+</div>

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato|Concert+One');
 
-/* Site-wide */
 html,
 body {
   height: 100%;
@@ -14,7 +13,6 @@ body {
   font-family: "Concert One";
 }
 
-/* Landing Page */
 #landing {
   background: url('../img/stadium.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -30,7 +28,8 @@ body {
     cursor: pointer;
 }
 
-.save-article:hover {
+.save-article:hover,
+.delete-article:hover {
     cursor: pointer;
 }
 

@@ -6,13 +6,26 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const router = express.Router();
 
-// Display the scraped articles from the database when visiting the homepage.
+// Display the scraped, not-saved articles from the database when visiting the homepage.
 router.get("/", (req, res) => {
   db.Article.find({
-      saved: false
+    saved: false
   })
     .then(article => {
       res.render("index", {
+        article: article
+      });
+    })
+    .catch(error => res.json(error));
+});
+
+// Display the saved articles from the database when visiting the /saved page.
+router.get("/saved", (req, res) => {
+  db.Article.find({
+    saved: true
+  })
+    .then(article => {
+      res.render("saved", {
         article: article
       });
     })
