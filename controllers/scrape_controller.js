@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 });
 
 // Scrape fresh articles when we hit the /scrap route.
-router.get("/scrape", (req, res) => {
+router.get("/api/scrape", (req, res) => {
   axios.get("https://www.theguardian.com/football").then(response => {
     const $ = cheerio.load(response.data);
 
@@ -41,6 +41,8 @@ router.get("/scrape", (req, res) => {
         .find("img")
         .attr("src");
 
+      result.saved = false;
+
       db.Article.create(result)
         .then(dbArticle => {
           // View the added result in the console
@@ -52,5 +54,14 @@ router.get("/scrape", (req, res) => {
     res.send(`Scrape complete!`);
   });
 });
+
+router.get("/api/clear", (req, res) => {
+    db.Article.deleteMany({
+        saved: false
+    })
+    .then(response => res.send(response))
+    .catch(err => console.log(err));
+
+})
 
 module.exports = router;

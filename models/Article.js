@@ -15,6 +15,7 @@ const ArticleSchema = new Schema({
   image: {
     type: String
   },
+  saved: Boolean,
   note: {
     type: Schema.Types.ObjectId,
     ref: "Note"

@@ -25,6 +25,11 @@ body {
   width: 100%;
 }
 
+#scrape-articles:hover,
+#clear-articles:hover {
+    cursor: pointer;
+}
+
 .card-columns {
     background-color: rgba(245, 245, 245, 0.4);
 }
