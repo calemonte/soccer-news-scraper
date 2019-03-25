@@ -42,7 +42,6 @@ router.get("/saved/:id", (req, res) => {
   })
     .populate("note")
     .then(article => {
-      // console.log("Does this inlude our notes?" + article[1].note);
       res.json(article);
     })
     .catch(error => res.json(error));

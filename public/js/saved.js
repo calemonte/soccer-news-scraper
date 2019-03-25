@@ -40,18 +40,16 @@ $(document).ready(function() {
 
   // Show the add note modal, which contains our notes, when we click on the add note button.
   function showAddNoteModal() {
-    // Locally set out article id.
+    // Locally set our article id.
     thisArticle.setId($(this).data("id"));
 
     // Get our notes and append them to the existing modal.
     $.get(`/saved/${thisArticle.getId()}`)
       .then(result => {
         // Empty the modal to get started.
+        const article = result[0];
         const $modalNoteTarget = $("#modal-note-target");
         $modalNoteTarget.empty();
-
-        // Create our modal components.
-        const article = result[0];
 
         // Append each note if there are notes to append.
         if (article.note.length > 0) {
