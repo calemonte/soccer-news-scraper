@@ -32,7 +32,7 @@ $(document).ready(function() {
       url: `/api/article/${id}`,
       data: JSON.stringify(id),
       success: () => {
-        showModal("Article Saved!", "Your article was successfully saved. To add notes to the article, visit the Saved Articles page in the navigation bar.");
+        showModal("Article Saved!", "Your article was successfully saved. To add notes, visit the Saved Articles page.");
       }
     });
   }
@@ -43,8 +43,8 @@ $(document).ready(function() {
 
     // Show the modal. Clear it 500mils after it's been dismissed.
     $(".modal").modal("show");
-    $("button[data-dismiss='modal']").on("click", function() {
-      setTimeout(function() {
+    $("button[data-dismiss='modal']").on("click", () => {
+      setTimeout(() => {
         $("#modal-text").text("");
         $(".modal-title").text("");
       }, 500);

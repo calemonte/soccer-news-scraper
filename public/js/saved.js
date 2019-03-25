@@ -13,7 +13,6 @@ $(document).ready(function() {
   $(".add-note").on("click", showAddNoteModal);
   $("#submit-note").on("click", submitNote);
   $(document).on("click", ".note-delete-button", deleteNote);
-//   $(".note-delete-button").on("click", deleteNote);
 
   // Delete an article from the database and the DOM when clicked.
   function deleteArticle() {
@@ -24,7 +23,7 @@ $(document).ready(function() {
     $.ajax({
       type: "DELETE",
       url: `/api/article/${id}`
-    }).then(data => console.log(data));
+    }).catch(err => console.log(err));
   }
 
   // Delete a note from the database and the DOM when clicked.
@@ -36,7 +35,7 @@ $(document).ready(function() {
     $.ajax({
       type: "DELETE",
       url: `/api/notes/${id}`
-    }).then(data => console.log(data));
+    }).catch(err => console.log(err));
   }
 
   // Show the add note modal, which contains our notes, when we click on the add note button.
@@ -57,6 +56,7 @@ $(document).ready(function() {
         // Append each note if there are notes to append.
         if (article.note.length > 0) {
           const notes = article.note;
+
           notes.forEach(note => {
             const noteDiv = $(
               `<div class="border border rounded p-2 text-center mb-2 note-div">`
@@ -102,20 +102,22 @@ $(document).ready(function() {
       .trim();
     const id = thisArticle.getId();
 
-    const data = {
-      articleId: id,
-      title: title,
-      body: body
-    };
+    if (!title || !body) {
+      alert("Make sure that you have a title and a body for your note!");
+    } else {
+      const data = {
+        articleId: id,
+        title: title,
+        body: body
+      };
 
-    // Send our data to the notes POST route.
-    $.post("/api/notes/", data, (data, status) => {
-      console.log(`Status: ${status}. Data: ${JSON.stringify(data)}`);
-    });
+      // Send our data to the notes POST route.
+      $.post("/api/notes/", data).catch(err => console.log(err));
 
-    // Clear the note modal inputs.
-    $("#note-title").val("");
-    $("#note-text").val("");
-    $(".modal").modal("hide");
+      // Clear the note modal inputs.
+      $("#note-title").val("");
+      $("#note-text").val("");
+      $(".modal").modal("hide");
+    }
   }
 });
