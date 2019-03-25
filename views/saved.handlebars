@@ -40,16 +40,8 @@
                 </button>
             </div>
             <div class="modal-body">
-
-                <div class="border border rounded p-2 text-center mb-2">
-                    {{#each note}}
-                      <h5>{{title}}</h5>
-                      <p>{{body}}</p>
-                      <button type="button" class="btn btn-danger btn-sm" data-id="{{_id}}">Delete Note</button>
-                    {{else}}
-                      <p>There aren't any notes yet for this article.</p>
-                    {{/each}}
-                </div>
+                <!-- Notes populated here. -->
+                <div id="modal-note-target"></div>
                 <hr />
                 <form>
                     <div class="form-group">

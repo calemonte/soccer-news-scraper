@@ -33,6 +33,21 @@ router.get("/saved", (req, res) => {
     .catch(error => res.json(error));
 });
 
+// Display the individual article populated with it's notes when hit.
+router.get("/saved/:id", (req, res) => {
+    const id = req.params.id;
+
+    db.Article.find({
+      _id: id
+    })
+      .populate("note")
+      .then(article => {
+        // console.log("Does this inlude our notes?" + article[1].note);
+        res.json(article);
+      })
+      .catch(error => res.json(error));
+  });
+
 // Scrape fresh articles when we hit the /scrape route.
 router.get("/api/scrape", (req, res) => {
   axios.get("https://www.theguardian.com/football").then(response => {

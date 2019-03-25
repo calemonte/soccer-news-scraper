@@ -25,10 +25,53 @@ $(document).ready(function() {
     }).then(data => console.log(data));
   }
 
-  //   Show the modal when click on the save article button.
-  function showAddNoteModal(e) {
-    $(".modal").modal("show");
+  // Show the modal when click on the save article button.
+  function showAddNoteModal() {
+    // Locally set out article id.
     thisArticle.setId($(this).data("id"));
+
+    // Get our notes and append them to the existing modal.
+    $.get(`/saved/${thisArticle.getId()}`)
+      .then(result => {
+        // Empty the modal to get started.
+        const $modalNoteTarget = $("#modal-note-target");
+        $modalNoteTarget.empty();
+
+        // Create our modal components.
+        const article = result[0];
+
+        if (article.note.length > 0) {
+          const notes = article.note;
+          notes.forEach(note => {
+            const noteDiv = $(
+              `<div class="border border rounded p-2 text-center mb-2">`
+            );
+            const noteHeader = $(`<h5 class="note-display-title">`);
+            const noteBody = $(`<p class="note-display-body">`);
+            const noteDelete = $(
+              `<button type="button" class="btn btn-danger btn-sm note-delete-button" data-id="">Delete Note</button>`
+            );
+
+            noteHeader.text(note.title);
+            noteBody.text(note.body);
+            noteDelete.attr("data-id", note._id);
+            noteDiv.append(noteHeader, noteBody, noteDelete);
+            $modalNoteTarget.append(noteDiv);
+          });
+        } else {
+          const noteDiv = $(
+            `<div class="border border rounded p-2 text-center mb-2">`
+          );
+          const noteBody = $(`<p class="note-display-body">`);
+          
+          noteBody.text(`There aren't any notes yet for this article.`);
+          noteDiv.append(noteBody);
+          $modalNoteTarget.append(noteDiv);
+        }
+
+        $(".modal").modal("show");
+      })
+      .catch(err => console.log(err));
   }
 
   function submitNote(e) {
