@@ -24,9 +24,10 @@ router.get("/saved", (req, res) => {
   db.Article.find({
     saved: true
   })
+    .populate("note")
     .then(article => {
       res.render("saved", {
-        article: article
+        article: article,
       });
     })
     .catch(error => res.json(error));
@@ -103,10 +104,10 @@ router.delete("/api/article/:id", (req, res) => {
   const id = req.params.id;
 
   db.Article.deleteOne({
-      _id: id
+    _id: id
   })
-  .then(deletedDoc => res.send(deletedDoc))
-  .catch(err => console.log(err));
+    .then(deletedDoc => res.send(deletedDoc))
+    .catch(err => console.log(err));
 });
 
 // Clear the database of all "unsaved" articles when we hit the /api/clear route.
@@ -116,6 +117,33 @@ router.get("/api/clear", (req, res) => {
   })
     .then(response => res.send(response))
     .catch(err => console.log(err));
+});
+
+// Route for creating a new note.
+router.post("/api/notes", (req, res) => {
+  const { articleId, title, body } = req.body;
+
+  db.Note.create({
+    title: title,
+    body: body
+  })
+    .then(newNote => {
+      return db.Article.findOneAndUpdate(
+        {
+          _id: articleId
+        },
+        {
+          $push: {
+              note: newNote._id 
+            }
+        },
+        {
+          new: true
+        }
+      );
+    })
+    .then(updatedArticle => res.json(updatedArticle))
+    .catch(err => res.json(err));
 });
 
 module.exports = router;

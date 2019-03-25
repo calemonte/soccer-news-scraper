@@ -49,9 +49,9 @@ $(document).ready(function() {
     };
 
     // Send our data to the notes POST route.
-    $.post("/api/notes/", data, (data, status) =>
-      console.log(`Status: ${status}. Data: ${data}`)
-    );
+    $.post("/api/notes/", data, (data, status) => {
+      console.log(`Status: ${status}. Data: ${JSON.stringify(data)}`);
+    });
 
     // Clear the note modal inputs.
     $("#note-title").val("");
