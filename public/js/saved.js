@@ -12,6 +12,8 @@ $(document).ready(function() {
   $(".delete-article").on("click", deleteArticle);
   $(".add-note").on("click", showAddNoteModal);
   $("#submit-note").on("click", submitNote);
+  $(document).on("click", ".note-delete-button", deleteNote);
+//   $(".note-delete-button").on("click", deleteNote);
 
   // Delete an article from the database and the DOM when clicked.
   function deleteArticle() {
@@ -25,7 +27,19 @@ $(document).ready(function() {
     }).then(data => console.log(data));
   }
 
-  // Show the modal when click on the save article button.
+  // Delete a note from the database and the DOM when clicked.
+  function deleteNote() {
+    const id = $(this).data("id");
+    const thisNote = $(this).parents(".note-div");
+    thisNote.remove();
+
+    $.ajax({
+      type: "DELETE",
+      url: `/api/notes/${id}`
+    }).then(data => console.log(data));
+  }
+
+  // Show the add note modal, which contains our notes, when we click on the add note button.
   function showAddNoteModal() {
     // Locally set out article id.
     thisArticle.setId($(this).data("id"));
@@ -40,11 +54,12 @@ $(document).ready(function() {
         // Create our modal components.
         const article = result[0];
 
+        // Append each note if there are notes to append.
         if (article.note.length > 0) {
           const notes = article.note;
           notes.forEach(note => {
             const noteDiv = $(
-              `<div class="border border rounded p-2 text-center mb-2">`
+              `<div class="border border rounded p-2 text-center mb-2 note-div">`
             );
             const noteHeader = $(`<h5 class="note-display-title">`);
             const noteBody = $(`<p class="note-display-body">`);
@@ -58,12 +73,14 @@ $(document).ready(function() {
             noteDiv.append(noteHeader, noteBody, noteDelete);
             $modalNoteTarget.append(noteDiv);
           });
+
+          // Otherwise display a generic alert to create some notes.
         } else {
           const noteDiv = $(
             `<div class="border border rounded p-2 text-center mb-2">`
           );
           const noteBody = $(`<p class="note-display-body">`);
-          
+
           noteBody.text(`There aren't any notes yet for this article.`);
           noteDiv.append(noteBody);
           $modalNoteTarget.append(noteDiv);

@@ -27,7 +27,7 @@ router.get("/saved", (req, res) => {
     .populate("note")
     .then(article => {
       res.render("saved", {
-        article: article,
+        article: article
       });
     })
     .catch(error => res.json(error));
@@ -35,18 +35,18 @@ router.get("/saved", (req, res) => {
 
 // Display the individual article populated with it's notes when hit.
 router.get("/saved/:id", (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    db.Article.find({
-      _id: id
+  db.Article.find({
+    _id: id
+  })
+    .populate("note")
+    .then(article => {
+      // console.log("Does this inlude our notes?" + article[1].note);
+      res.json(article);
     })
-      .populate("note")
-      .then(article => {
-        // console.log("Does this inlude our notes?" + article[1].note);
-        res.json(article);
-      })
-      .catch(error => res.json(error));
-  });
+    .catch(error => res.json(error));
+});
 
 // Scrape fresh articles when we hit the /scrape route.
 router.get("/api/scrape", (req, res) => {
@@ -149,8 +149,8 @@ router.post("/api/notes", (req, res) => {
         },
         {
           $push: {
-              note: newNote._id 
-            }
+            note: newNote._id
+          }
         },
         {
           new: true
@@ -159,6 +159,15 @@ router.post("/api/notes", (req, res) => {
     })
     .then(updatedArticle => res.json(updatedArticle))
     .catch(err => res.json(err));
+});
+
+router.delete("/api/notes/:id", (req, res) => {
+  const id = req.params.id;
+  db.Note.deleteOne({
+    _id: id
+  })
+    .then(deletedDoc => res.send(deletedDoc))
+    .catch(err => console.log(err));
 });
 
 module.exports = router;
