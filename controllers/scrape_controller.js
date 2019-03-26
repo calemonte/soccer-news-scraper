@@ -60,68 +60,23 @@ router.get("/api/scrape", (req, res) => {
       result.title = $(textContent)
         .find(".fc-item__title")
         .text();
-
       result.link = $(textContent)
         .find("a")
         .attr("href");
-
       result.image = $(mediaContent)
         .find("img")
         .attr("src");
-
       result.saved = false;
 
-      // Only save articles to the database if they don't exist already.
-      db.Article.findOne(
-        {
-          link: result.link
-        },
-        (err, doc) => {
-          if (err) console.log(err);
-          if (!doc) {
-            db.Article.create(result)
-              .then(dbArticle => {
-                console.log(dbArticle);
-              })
-              .catch(err => console.log(err));
-          } else {
-            console.log("Article already exists in the database.");
-          }
-        }
-      );
+      db.Article.create(result)
+        .then(dbArticle => {
+          console.log(dbArticle);
+        })
+        .catch(err => console.log(err));
     });
 
     res.send(200, `Scrape complete!`);
   });
-});
-
-// Update an article to save.
-router.put("/api/article/:id", (req, res) => {
-  const id = req.params.id;
-
-  db.Article.updateOne(
-    {
-      _id: id
-    },
-    {
-      $set: {
-        saved: true
-      }
-    }
-  )
-    .then(doc => res.send(doc))
-    .catch(err => console.log(err));
-});
-
-// Delete a saved article.
-router.delete("/api/article/:id", (req, res) => {
-  const id = req.params.id;
-
-  db.Article.deleteOne({
-    _id: id
-  })
-    .then(deletedDoc => res.send(deletedDoc))
-    .catch(err => console.log(err));
 });
 
 // Clear the database of all "unsaved" articles when we hit the /api/clear route.
@@ -158,6 +113,35 @@ router.post("/api/notes", (req, res) => {
     })
     .then(updatedArticle => res.json(updatedArticle))
     .catch(err => res.json(err));
+});
+
+// Update an article to save.
+router.put("/api/article/:id", (req, res) => {
+  const id = req.params.id;
+
+  db.Article.updateOne(
+    {
+      _id: id
+    },
+    {
+      $set: {
+        saved: true
+      }
+    }
+  )
+    .then(doc => res.send(doc))
+    .catch(err => console.log(err));
+});
+
+// Delete a saved article.
+router.delete("/api/article/:id", (req, res) => {
+  const id = req.params.id;
+
+  db.Article.deleteOne({
+    _id: id
+  })
+    .then(deletedDoc => res.send(deletedDoc))
+    .catch(err => console.log(err));
 });
 
 router.delete("/api/notes/:id", (req, res) => {

@@ -7,7 +7,7 @@ $(document).ready(function() {
   function scrapeArticles() {
     $.get("/api/scrape")
       .then(result => {
-        location.reload();
+        window.location.reload(true);
       })
       .catch(err => console.log(err));
   }
@@ -16,7 +16,7 @@ $(document).ready(function() {
   function clearArticles() {
     $.get("/api/clear")
       .then(result => {
-        location.reload();
+        window.location.reload(true);
       })
       .catch(err => console.log(err));
   }
