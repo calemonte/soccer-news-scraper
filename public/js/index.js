@@ -32,8 +32,11 @@ $(document).ready(function() {
       url: `/api/article/${id}`,
       data: JSON.stringify(id),
       success: () => {
-        showModal("Article Saved!", "Your article was successfully saved. To add notes, visit the Saved Articles page.");
-      }
+        showModal("Article Saved", "Your article was successfully saved. To add notes, visit the Saved Articles page.");
+      },
+      error: () => {
+        showModal("Article Unsuccessfully Saved", "Something went wrong with saving your article. Try again!");
+      } 
     });
   }
 
