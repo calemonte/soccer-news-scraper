@@ -1,3 +1,5 @@
+ ![Screenshot of the Soccer News Scraper masthead](public/img/soccernews.png "Screenshot of the Soccer News Scraper masthead.")
+
 # Soccer News Scraper
 
 This full stack application allows users to easily scrape headlines from [The Guardian's soccer website](https://www.theguardian.com/football), save favorite articles, and then add comments to those saved articles. This website was created for an assignment as part of the Penn LPS Coding Bootcamp's section on MongoDB and Mongoose.js.
@@ -15,7 +17,7 @@ git clone git@github.com:calemonte/soccer-news-scraper.git
 cd /soccer-news-scraper
 npm install
 ```
-To develop this project locally, you will need to have MongoDB installed and the [server running](https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/#start-mongod-processes).
+To develop this project locally, you will need to have MongoDB installed and the [server running](https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/#start-mongod-processes). Then, enter `node server.js` in your terminal to spin up the application.
 
 ## Technologies Used
 
