@@ -1,6 +1,6 @@
 # Soccer News Scraper
 
-This app allows users to easily scrape headlines from [The Guardian's soccer website](https://www.theguardian.com/football), save favorite articles, and then add comments to those saved articles. This website was created during the process of learning MongoDB and Mongoose.js.
+This full stack application allows users to easily scrape headlines from [The Guardian's soccer website](https://www.theguardian.com/football), save favorite articles, and then add comments to those saved articles. This website was created during the process of learning MongoDB and Mongoose.js.
 
 Deployed site: https://soccer-news-scraper.herokuapp.com/ 
 
