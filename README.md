@@ -1,6 +1,8 @@
 # Soccer News Scraper
 
-This full stack application allows users to easily scrape headlines from [The Guardian's soccer website](https://www.theguardian.com/football), save favorite articles, and then add comments to those saved articles. This website was created during the process of learning MongoDB and Mongoose.js.
+This full stack application allows users to easily scrape headlines from [The Guardian's soccer website](https://www.theguardian.com/football), save favorite articles, and then add comments to those saved articles. This website was created for an assignment as part of the Penn LPS Coding Bootcamp's section on MongoDB and Mongoose.js.
+
+To scrape new articles from The Guardian, click *Scrape Articles*. To delete the scraped articles, click *Clear Articles*. To save an article -- and preserve it from being cleared -- click *Save Article* on the card for an individual article. To add a comment to a saved article, simply click the *Notes* button on article card for any of the saved articles. Both articles and their comments can be deleted from the Saved Articles page. 
 
 Deployed site: https://soccer-news-scraper.herokuapp.com/ 
 
@@ -23,7 +25,8 @@ To develop this project locally, you will need to have MongoDB installed and the
 - MongoDB
 - Mongoose.js
 - Heroku + mLab MongoDB (for deployment)
-- Axios 
+- Axios
+- Cheerio
 - Handlebars
 - HTML/CSS
 
