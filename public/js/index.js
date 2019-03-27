@@ -6,7 +6,7 @@ $(document).ready(function() {
   // Function for hitting the API and scraping new articles.
   function scrapeArticles() {
     $.get("/api/scrape")
-      .then(result => {
+      .then(() => {
         window.location.reload(true);
       })
       .catch(err => console.log(err));
@@ -15,7 +15,7 @@ $(document).ready(function() {
   // Function that clears the database.
   function clearArticles() {
     $.get("/api/clear")
-      .then(result => {
+      .then(() => {
         window.location.reload(true);
       })
       .catch(err => console.log(err));
